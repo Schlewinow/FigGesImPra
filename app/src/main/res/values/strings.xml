@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">FigGesImPra</string>
+
+    <string name="session_setup_select_folder_hint">Please select a folder by tapping the folder icon.</string>
+    <string name="session_setup_include_subdirs">include subdirectories</string>
+    <string name="session_setup_random_mirror">randomly horizontally mirror images</string>
+
+    <string name="session_setup_count">Images per session:</string>
+    <string name="session_setup_count_minus_button">-</string>
+    <string name="session_setup_count_plus_button">+</string>
+
+    <string name="session_setup_duration">Duration per image (seconds):</string>
+    <string name="session_setup_duration_30secs_button">30 Sec</string>
+    <string name="session_setup_duration_45secs_button">45 Sec</string>
+    <string name="session_setup_duration_60secs_button">1 Min</string>
+    <string name="session_setup_duration_120secs_button">2 Min</string>
+    <string name="session_setup_duration_300secs_button">5 Min</string>
+    <string name="session_setup_duration_600secs_button">10 Min</string>
+
+    <string name="session_setup_start_button">Start session</string>
+
+    <string name="error_message_missing_image_folder">Please select an image folder for the session.</string>
+    <string name="error_message_empty_image_folder">The selected folder doesn\'t contain any usable images.</string>
+
+    <string name="session_finish_caption">Session finished</string>
+    <string name="session_finish_description">You can revisit any image of this session by tapping it on the gallery above. Going back to the setting will quit this session.</string>
+    <string name="session_finish_button">Back to settings</string>
+</resources>

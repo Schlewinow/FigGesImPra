@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_background"
+    tools:context=".SessionSetupActivity">
+
+    <Button
+        android:id="@+id/sessionSetupStartButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/button_background"
+        android:text="@string/session_setup_start_button"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/sessionSetupStartButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sessionSetupDirectoryLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/activity_block_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageButton
+                    android:id="@+id/sessionSetupDirectoryButton"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@null"
+                    android:src="@drawable/button_folder"
+                    android:tintMode="multiply"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/button_background" />
+
+                <EditText
+                    android:id="@+id/sessionSetupDirectoryName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="9dp"
+                    android:backgroundTint="@color/activity_text"
+                    android:editable="false"
+                    android:ems="10"
+                    android:hint="@string/session_setup_select_folder_hint"
+                    android:inputType="none"
+                    android:textColor="@color/activity_text"
+                    android:textColorHint="@color/activity_text_inactive"
+                    app:layout_constraintBottom_toBottomOf="@+id/sessionSetupDirectoryButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/sessionSetupDirectoryButton"
+                    app:layout_constraintTop_toTopOf="@+id/sessionSetupDirectoryButton" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/sessionSetupImagePreviewRecycler"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sessionSetupMirrorCheckbox">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <CheckBox
+                    android:id="@+id/sessionSetupSubdirCheckbox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/session_setup_include_subdirs"
+                    android:textColor="@color/activity_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sessionSetupDirectoryButton" />
+
+                <CheckBox
+                    android:id="@+id/sessionSetupMirrorCheckbox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/session_setup_random_mirror"
+                    android:textColor="@color/activity_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sessionSetupSubdirCheckbox" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sessionSetupCounterLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@color/activity_block_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sessionSetupDirectoryLayout">
+
+                <TextView
+                    android:id="@+id/sessionSetupCounterLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/session_setup_count"
+                    android:textColor="@color/activity_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/sessionSetupCounterEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/sessionSetupCounterEditText" />
+
+                <EditText
+                    android:id="@+id/sessionSetupCounterEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="@color/button_background"
+                    android:ems="3"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textColor="@color/activity_text"
+                    app:layout_constraintStart_toEndOf="@+id/sessionSetupCounterLabel"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="10" />
+
+                <Button
+                    android:id="@+id/sessionSetupCounterPlusButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="@color/button_background"
+                    android:text="@string/session_setup_count_plus_button"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/button_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/sessionSetupCounterMinusButton"
+                    app:layout_constraintStart_toEndOf="@+id/sessionSetupCounterMinusButton"
+                    app:layout_constraintTop_toTopOf="@+id/sessionSetupCounterMinusButton" />
+
+                <Button
+                    android:id="@+id/sessionSetupCounterMinusButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/button_background"
+                    android:text="@string/session_setup_count_minus_button"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/button_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sessionSetupCounterEditText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sessionSetupTimerLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@color/activity_block_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sessionSetupCounterLayout">
+
+                <Button
+                    android:id="@+id/sessionSetupTimer30SecButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/button_background"
+                    android:text="@string/session_setup_duration_30secs_button"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/button_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sessionSetupTimerEditText" />
+
+                <Button
+                    android:id="@+id/sessionSetupTimer45SecButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/button_background"
+                    android:text="@string/session_setup_duration_45secs_button"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/button_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/sessionSetupTimer30SecButton"
+                    app:layout_constraintEnd_toStartOf="@+id/sessionSetupTimer1MinButton"
+                    app:layout_constraintStart_toEndOf="@+id/sessionSetupTimer30SecButton"
+                    app:layout_constraintTop_toTopOf="@+id/sessionSetupTimer30SecButton" />
+
+                <Button
+                    android:id="@+id/sessionSetupTimer1MinButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/button_background"
+                    android:text="@string/session_setup_duration_60secs_button"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/button_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/sessionSetupTimer30SecButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/sessionSetupTimer30SecButton" />
+
+                <Button
+                    android:id="@+id/sessionSetupTimer2MinButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/button_background"
+                    android:text="@string/session_setup_duration_120secs_button"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/button_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/sessionSetupTimer30SecButton"
+                    app:layout_constraintStart_toStartOf="@+id/sessionSetupTimer30SecButton"
+                    app:layout_constraintTop_toBottomOf="@+id/sessionSetupTimer30SecButton" />
+
+                <Button
+                    android:id="@+id/sessionSetupTimer5MinButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/button_background"
+                    android:text="@string/session_setup_duration_300secs_button"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/button_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/sessionSetupTimer2MinButton"
+                    app:layout_constraintEnd_toEndOf="@+id/sessionSetupTimer45SecButton"
+                    app:layout_constraintStart_toStartOf="@+id/sessionSetupTimer45SecButton"
+                    app:layout_constraintTop_toTopOf="@+id/sessionSetupTimer2MinButton" />
+
+                <Button
+                    android:id="@+id/sessionSetupTimer10MinButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/button_background"
+                    android:text="@string/session_setup_duration_600secs_button"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/button_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/sessionSetupTimer2MinButton"
+                    app:layout_constraintEnd_toEndOf="@+id/sessionSetupTimer1MinButton"
+                    app:layout_constraintStart_toStartOf="@+id/sessionSetupTimer1MinButton"
+                    app:layout_constraintTop_toTopOf="@+id/sessionSetupTimer2MinButton" />
+
+                <TextView
+                    android:id="@+id/sessionSetupTimerLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/session_setup_duration"
+                    android:textAlignment="center"
+                    android:textColor="@color/activity_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/sessionSetupTimerEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/sessionSetupTimerEditText" />
+
+                <EditText
+                    android:id="@+id/sessionSetupTimerEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="@color/button_background"
+                    android:ems="4"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textColor="@color/activity_text"
+                    app:layout_constraintStart_toEndOf="@+id/sessionSetupTimerLabel"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sessionSetupLoadingLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/activity_loading_background"
+        android:clickable="true"
+        android:translationZ="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
