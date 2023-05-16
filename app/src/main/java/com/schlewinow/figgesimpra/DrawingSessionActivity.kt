@@ -169,6 +169,8 @@ class DrawingSessionActivity : AppCompatActivity() {
      * Update the UI to show the proper image and session progress.
      */
     private fun showImage(sessionImage: SessionImage) {
+        runningSession.timerPassedMillis = 0
+
         ImageFileTools.loadImage(this, sessionImage.imageFile, sessionImageView!!)
         sessionImageView?.scaleX = if (sessionImage.mirrored) -1.0f else 1.0f
 
@@ -187,7 +189,6 @@ class DrawingSessionActivity : AppCompatActivity() {
         }
 
         runningSession.currentImageIndex--
-        runningSession.timerPassedMillis = 0
         showImage(runningSession.selectedImages[runningSession.currentImageIndex])
     }
 
@@ -203,7 +204,6 @@ class DrawingSessionActivity : AppCompatActivity() {
             finishSession()
         }
         else {
-            runningSession.timerPassedMillis = 0
             showImage(runningSession.selectedImages[runningSession.currentImageIndex])
         }
     }
