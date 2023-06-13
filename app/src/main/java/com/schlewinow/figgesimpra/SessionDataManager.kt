@@ -37,6 +37,9 @@ object SessionDataManager {
         sharedPrefsEdit.putBoolean("sessionAllowMirroringImages", session.allowMirroringImages)
         sharedPrefsEdit.putInt("sessionImageCount", session.imageCount)
         sharedPrefsEdit.putInt("sessionDurationSeconds", session.durationSeconds)
+        sharedPrefsEdit.putBoolean("sessionBreakActive", session.autoBreakActive)
+        sharedPrefsEdit.putInt("sessionBreakInterval", session.breakInterval)
+        sharedPrefsEdit.putInt("sessionBreakDurationSeconds", session.breakDurationSeconds)
         sharedPrefsEdit.putBoolean("sessionStored", true)
 
         sharedPrefsEdit.apply()
@@ -59,6 +62,9 @@ object SessionDataManager {
         restoredSession.editAllowMirroringImages(sharedPrefs.getBoolean("sessionAllowMirroringImages", false))
         restoredSession.editImageCount(sharedPrefs.getInt("sessionImageCount", 0))
         restoredSession.editDurationSeconds(sharedPrefs.getInt("sessionDurationSeconds", 0))
+        restoredSession.editAutoBreakActive(sharedPrefs.getBoolean("sessionBreakActive", false))
+        restoredSession.editBreakInterval(sharedPrefs.getInt("sessionBreakInterval", 0))
+        restoredSession.editBreakDuration(sharedPrefs.getInt("sessionBreakDurationSeconds", 0))
 
         val uriString = sharedPrefs.getString("sessionImageDirectory", "")
         if (uriString?.isNotEmpty() == true) {

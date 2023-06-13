@@ -28,4 +28,16 @@ class SessionEdit : Session() {
     fun editDurationSeconds(durationSeconds: Int) {
         this.durationSeconds = durationSeconds
     }
+
+    fun editAutoBreakActive(autoBreakActive: Boolean) {
+        this.autoBreakActive = autoBreakActive
+    }
+
+    fun editBreakInterval(breakInterval: Int) {
+        this.breakInterval = breakInterval
+    }
+
+    fun editBreakDuration(breakDuration: Int) {
+        this.breakDurationSeconds = breakDuration
+    }
 }

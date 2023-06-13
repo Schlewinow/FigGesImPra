@@ -11,6 +11,9 @@ class SessionRun : Session() {
         allowMirroringImages = session.allowMirroringImages
         imageCount = session.imageCount
         durationSeconds = session.durationSeconds
+        autoBreakActive = session.autoBreakActive
+        breakInterval = session.breakInterval
+        breakDurationSeconds = session.breakDurationSeconds
     }
 
     /**
@@ -41,4 +44,9 @@ class SessionRun : Session() {
      * Pause state of the session image timer.
      */
     var timerPaused: Boolean = false
+
+    /**
+     * Session auto break state.
+     */
+    var breakActive: Boolean = false
 }

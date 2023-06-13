@@ -35,4 +35,24 @@ open class Session {
      */
     var durationSeconds: Int = 0
         protected set
+
+    /**
+     * When true, automatically take a short break between images.
+     * Use [breakInterval] and [breakDurationSeconds] to modify the break parameters.
+     */
+    var autoBreakActive: Boolean = false
+        protected set
+
+    /**
+     * The amount of images during a session after which to start a break.
+     * A break will start after every nth image.
+     */
+    var breakInterval: Int = 0
+        protected set
+
+    /**
+     * The duration in seconds the break screen will be shown before going to the next image.
+     */
+    var breakDurationSeconds: Int = 0
+        protected set
 }

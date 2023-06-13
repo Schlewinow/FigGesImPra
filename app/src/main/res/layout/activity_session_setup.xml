@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@color/activity_block_background"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -127,12 +128,14 @@
 
                 <TextView
                     android:id="@+id/sessionSetupCounterLabel"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/session_setup_count"
                     android:textColor="@color/activity_text"
                     app:layout_constraintBottom_toBottomOf="@+id/sessionSetupCounterEditText"
+                    app:layout_constraintEnd_toStartOf="@+id/sessionSetupCounterEditText"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/sessionSetupCounterEditText" />
 
@@ -140,13 +143,13 @@
                     android:id="@+id/sessionSetupCounterEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:backgroundTint="@color/button_background"
                     android:ems="3"
                     android:inputType="number"
                     android:textAlignment="center"
                     android:textColor="@color/activity_text"
-                    app:layout_constraintStart_toEndOf="@+id/sessionSetupCounterLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="10" />
 
@@ -280,13 +283,14 @@
 
                 <TextView
                     android:id="@+id/sessionSetupTimerLabel"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/session_setup_duration"
-                    android:textAlignment="center"
                     android:textColor="@color/activity_text"
                     app:layout_constraintBottom_toBottomOf="@+id/sessionSetupTimerEditText"
+                    app:layout_constraintEnd_toStartOf="@+id/sessionSetupTimerEditText"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/sessionSetupTimerEditText" />
 
@@ -294,14 +298,96 @@
                     android:id="@+id/sessionSetupTimerEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:backgroundTint="@color/button_background"
                     android:ems="4"
                     android:inputType="number"
                     android:textAlignment="center"
                     android:textColor="@color/activity_text"
-                    app:layout_constraintStart_toEndOf="@+id/sessionSetupTimerLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sessionSetupBreakLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="24dp"
+                android:background="@color/activity_block_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sessionSetupTimerLayout">
+
+                <CheckBox
+                    android:id="@+id/sessionSetupBreakActivatedCheckbox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/session_setup_break_activate"
+                    android:textColor="@color/activity_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/sessionSetupBreakImagesLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/session_setup_break_interval"
+                    android:textColor="@color/activity_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/sessionSetupBreakImagesEditText"
+                    app:layout_constraintEnd_toStartOf="@+id/sessionSetupBreakImagesEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/sessionSetupBreakImagesEditText" />
+
+                <EditText
+                    android:id="@+id/sessionSetupBreakImagesEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/button_background"
+                    android:ems="4"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textColor="@color/activity_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sessionSetupBreakActivatedCheckbox"
+                    tools:text="1" />
+
+                <TextView
+                    android:id="@+id/sessionSetupBreakDurationLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/session_setup_break_duration"
+                    android:textColor="@color/activity_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/sessionSetupBreakDurationEditText"
+                    app:layout_constraintEnd_toStartOf="@+id/sessionSetupBreakDurationEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sessionSetupBreakImagesEditText" />
+
+                <EditText
+                    android:id="@+id/sessionSetupBreakDurationEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/button_background"
+                    android:ems="4"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textColor="@color/activity_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sessionSetupBreakImagesEditText"
                     tools:text="1" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

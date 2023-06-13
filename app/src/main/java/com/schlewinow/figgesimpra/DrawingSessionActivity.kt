@@ -38,6 +38,10 @@ class DrawingSessionActivity : AppCompatActivity() {
 
     private var sessionFinishLayout: View? = null
 
+    private var sessionBreakLayout: View? = null
+
+    private var sessionBreakRemainingTimeText: TextView? = null
+
     /**
      * The thread updating the timer.
      * As the thread references the current UI, it cannot be used with a new instance of the UI
@@ -93,6 +97,7 @@ class DrawingSessionActivity : AppCompatActivity() {
 
         setupSessionUI()
         setupSessionFinishUI()
+        setupSessionBreakUI()
 
         if(runningSession.finished) {
             showFinishLayout()
@@ -151,6 +156,18 @@ class DrawingSessionActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupSessionBreakUI() {
+        sessionBreakLayout = findViewById(R.id.drawingSessionBreakLayout)
+        sessionBreakLayout?.visibility = View.GONE
+
+        sessionBreakRemainingTimeText = findViewById(R.id.drawingSessionBreakTimerText)
+
+        val finishBreakButton: Button = findViewById(R.id.drawingSessionBreakFinishButton)
+        finishBreakButton.setOnClickListener {
+            showDrawingLayout()
+        }
+    }
+
     /**
      * Show icon for pause or play depending on current state.
      * @param pauseButton Image button to have icon switched.
@@ -205,19 +222,46 @@ class DrawingSessionActivity : AppCompatActivity() {
         }
         else {
             showImage(runningSession.selectedImages[runningSession.currentImageIndex])
+
+            if (runningSession.autoBreakActive) {
+                if (runningSession.currentImageIndex % runningSession.breakInterval == 0) {
+                    showBreakLayout()
+                }
+            }
         }
     }
 
     private fun showDrawingLayout() {
+        // When going in from finish layout, the timer is paused. So pause button state must be updated.
+        val pauseButton: ImageButton = findViewById(R.id.drawingSessionPauseButton)
+        updatePauseButtonUI(pauseButton, runningSession.timerPaused)
+
         sessionDrawingLayout?.visibility = View.VISIBLE
         sessionFinishLayout?.visibility = View.GONE
+        sessionBreakLayout?.visibility = View.GONE
+
         runningSession.finished = false
+        runningSession.breakActive = false
+        runningSession.timerPassedMillis = 0
     }
 
     private fun showFinishLayout() {
         sessionDrawingLayout?.visibility = View.GONE
         sessionFinishLayout?.visibility = View.VISIBLE
+        sessionBreakLayout?.visibility = View.GONE
+
         runningSession.finished = true
+        runningSession.breakActive = false
+    }
+
+    private fun showBreakLayout() {
+        sessionDrawingLayout?.visibility = View.GONE
+        sessionFinishLayout?.visibility = View.GONE
+        sessionBreakLayout?.visibility = View.VISIBLE
+
+        runningSession.finished = false
+        runningSession.breakActive = true
+        runningSession.timerPassedMillis = 0
     }
 
     /**
@@ -272,6 +316,7 @@ class DrawingSessionActivity : AppCompatActivity() {
      * Image timer thread method.
      * Counts down a timer. Once it hits zero, goes to the next session image.
      * Can be paused via the currently running session or quit using the local timerThreadRunning.
+     * Also used to count timer down during a break.
      */
     private fun runTimer() {
         val mainHandler = Handler(Looper.getMainLooper())
@@ -286,12 +331,24 @@ class DrawingSessionActivity : AppCompatActivity() {
             }
 
             val passedSeconds = runningSession.timerPassedMillis / 1000
-            val remainingTime  = runningSession.durationSeconds - passedSeconds
-            val remainingTimeString = "" + (remainingTime / 60) + ":" + (if(remainingTime % 60 < 10) "0" else "") + (remainingTime % 60)
-            mainHandler.post { sessionRemainingTimeText?.text = remainingTimeString }
 
-            if (passedSeconds >= runningSession.durationSeconds) {
-                mainHandler.post { showNextImage() }
+            if (runningSession.breakActive) {
+                val remainingTime  = runningSession.breakDurationSeconds - passedSeconds
+                val remainingTimeString = "" + (remainingTime / 60) + ":" + (if(remainingTime % 60 < 10) "0" else "") + (remainingTime % 60)
+                mainHandler.post { sessionBreakRemainingTimeText?.text = remainingTimeString }
+
+                if (passedSeconds >= runningSession.breakDurationSeconds) {
+                    mainHandler.post { showDrawingLayout() }
+                }
+            }
+            else {
+                val remainingTime  = runningSession.durationSeconds - passedSeconds
+                val remainingTimeString = "" + (remainingTime / 60) + ":" + (if(remainingTime % 60 < 10) "0" else "") + (remainingTime % 60)
+                mainHandler.post { sessionRemainingTimeText?.text = remainingTimeString }
+
+                if (passedSeconds >= runningSession.durationSeconds) {
+                    mainHandler.post { showNextImage() }
+                }
             }
 
             lastTimeCheck = currentTimeCheck
