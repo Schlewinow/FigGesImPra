@@ -218,6 +218,9 @@ class DrawingSessionActivity : AppCompatActivity() {
         runningSession.currentImageIndex++
 
         if (runningSession.currentImageIndex >= runningSession.imageCount) {
+            // Avoid index out of bounds.
+            runningSession.currentImageIndex = runningSession.imageCount - 1
+
             finishSession()
         }
         else {
