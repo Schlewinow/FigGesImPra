@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import android.view.animation.AlphaAnimation
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doOnTextChanged
 import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -100,66 +98,60 @@ class SessionSetupActivity : AppCompatActivity() {
 
     private fun setupSessionImageCountUI() {
         val sessionImageCountText: EditText = findViewById(R.id.sessionSetupCounterEditText)
-        var countTextWatcher: TextWatcher? = null
-        countTextWatcher = sessionImageCountText.doOnTextChanged { s, _, _, _ ->
-            var newImageCount = setupSession.imageCount
-            try {
-                newImageCount = Integer.parseInt(s.toString())
+        sessionImageCountText.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                setupSession.editImageCount(
+                    updateSessionEditText(
+                        parseEditText(sessionImageCountText, setupSession.imageCount),
+                        sessionImageCountText))
             }
-            catch (nfex: NumberFormatException) {
-                // Happens if the text field is left empty.
-            }
-            setupSession.editImageCount(updateSessionEditText(newImageCount, sessionImageCountText, countTextWatcher))
         }
-        setupSession.editImageCount(updateSessionEditText(setupSession.imageCount, sessionImageCountText, countTextWatcher))
+        setupSession.editImageCount(updateSessionEditText(setupSession.imageCount, sessionImageCountText))
 
         val sessionImageCountPlusButton: Button = findViewById(R.id.sessionSetupCounterPlusButton)
         sessionImageCountPlusButton.setOnClickListener {
-            setupSession.editImageCount(updateSessionEditText(setupSession.imageCount + 1, sessionImageCountText, countTextWatcher)) }
+            setupSession.editImageCount(updateSessionEditText(setupSession.imageCount + 1, sessionImageCountText)) }
 
         val sessionImageCountMinusButton: Button = findViewById(R.id.sessionSetupCounterMinusButton)
         sessionImageCountMinusButton.setOnClickListener {
-            setupSession.editImageCount(updateSessionEditText(setupSession.imageCount - 1, sessionImageCountText, countTextWatcher)) }
+            setupSession.editImageCount(updateSessionEditText(setupSession.imageCount - 1, sessionImageCountText)) }
     }
 
     private fun setupSessionDurationUI() {
         val sessionImageDurationText: EditText = findViewById(R.id.sessionSetupTimerEditText)
-        var durationTextWatcher: TextWatcher? = null
-        durationTextWatcher = sessionImageDurationText.doOnTextChanged { s, _, _, _ ->
-            var newImageDuration = setupSession.durationSeconds
-            try {
-                newImageDuration = Integer.parseInt(s.toString())
+        sessionImageDurationText.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                setupSession.editDurationSeconds(
+                    updateSessionEditText(
+                        parseEditText(sessionImageDurationText, setupSession.durationSeconds),
+                        sessionImageDurationText))
             }
-            catch (nfex: NumberFormatException) {
-                // Happens if the text field is left empty.
-            }
-            setupSession.editDurationSeconds(updateSessionEditText(newImageDuration, sessionImageDurationText, durationTextWatcher))
         }
-        setupSession.editDurationSeconds(updateSessionEditText(setupSession.durationSeconds, sessionImageDurationText, durationTextWatcher))
+        setupSession.editDurationSeconds(updateSessionEditText(setupSession.durationSeconds, sessionImageDurationText))
 
         val sessionDurationButton30: Button = findViewById(R.id.sessionSetupTimer30SecButton)
         sessionDurationButton30.setOnClickListener {
-            setupSession.editDurationSeconds(updateSessionEditText(30, sessionImageDurationText, durationTextWatcher)) }
+            setupSession.editDurationSeconds(updateSessionEditText(30, sessionImageDurationText)) }
 
         val sessionDurationButton45: Button = findViewById(R.id.sessionSetupTimer45SecButton)
         sessionDurationButton45.setOnClickListener {
-            setupSession.editDurationSeconds(updateSessionEditText(45, sessionImageDurationText, durationTextWatcher)) }
+            setupSession.editDurationSeconds(updateSessionEditText(45, sessionImageDurationText)) }
 
         val sessionDurationButton60: Button = findViewById(R.id.sessionSetupTimer1MinButton)
         sessionDurationButton60.setOnClickListener {
-            setupSession.editDurationSeconds(updateSessionEditText(60, sessionImageDurationText, durationTextWatcher)) }
+            setupSession.editDurationSeconds(updateSessionEditText(60, sessionImageDurationText)) }
 
         val sessionDurationButton120: Button = findViewById(R.id.sessionSetupTimer2MinButton)
         sessionDurationButton120.setOnClickListener {
-            setupSession.editDurationSeconds(updateSessionEditText(120, sessionImageDurationText, durationTextWatcher)) }
+            setupSession.editDurationSeconds(updateSessionEditText(120, sessionImageDurationText)) }
 
         val sessionDurationButton300: Button = findViewById(R.id.sessionSetupTimer5MinButton)
         sessionDurationButton300.setOnClickListener {
-            setupSession.editDurationSeconds(updateSessionEditText(300, sessionImageDurationText, durationTextWatcher)) }
+            setupSession.editDurationSeconds(updateSessionEditText(300, sessionImageDurationText)) }
 
         val sessionDurationButton600: Button = findViewById(R.id.sessionSetupTimer10MinButton)
         sessionDurationButton600.setOnClickListener {
-            setupSession.editDurationSeconds(updateSessionEditText(600, sessionImageDurationText, durationTextWatcher)) }
+            setupSession.editDurationSeconds(updateSessionEditText(600, sessionImageDurationText)) }
     }
 
     private fun setupSessionBreakUI() {
@@ -168,57 +160,60 @@ class SessionSetupActivity : AppCompatActivity() {
         sessionBreakActivatedCheckbox.setOnCheckedChangeListener { _, value -> setupSession.editAutoBreakActive(value) }
 
         val sessionBreakIntervalText: EditText = findViewById(R.id.sessionSetupBreakImagesEditText)
-        var intervalTextWatcher: TextWatcher? = null
-        intervalTextWatcher = sessionBreakIntervalText.doOnTextChanged { s, _, _, _ ->
-            var newBreakInterval = setupSession.breakInterval
-            try {
-                newBreakInterval = Integer.parseInt(s.toString())
+        sessionBreakIntervalText.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                setupSession.editBreakInterval(
+                    updateSessionEditText(
+                        parseEditText(sessionBreakIntervalText, setupSession.breakInterval),
+                        sessionBreakIntervalText))
             }
-            catch (nfex: NumberFormatException) {
-                // Happens if the text field is left empty.
-            }
-            setupSession.editBreakInterval(updateSessionEditText(newBreakInterval, sessionBreakIntervalText, intervalTextWatcher))
         }
-        setupSession.editBreakInterval(updateSessionEditText(setupSession.breakInterval, sessionBreakIntervalText, intervalTextWatcher))
+        setupSession.editBreakInterval(updateSessionEditText(setupSession.breakInterval, sessionBreakIntervalText))
 
         val sessionBreakDurationText: EditText = findViewById(R.id.sessionSetupBreakDurationEditText)
-        var durationTextWatcher: TextWatcher? = null
-        durationTextWatcher = sessionBreakDurationText.doOnTextChanged { s, _, _, _ ->
-            var newBreakDuration = setupSession.breakDurationSeconds
-            try {
-                newBreakDuration = Integer.parseInt(s.toString())
+        sessionBreakDurationText.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                setupSession.editBreakDuration(
+                    updateSessionEditText(
+                        parseEditText(sessionBreakDurationText, setupSession.breakDurationSeconds),
+                        sessionBreakDurationText))
             }
-            catch (nfex: NumberFormatException) {
-                // Happens if the text field is left empty.
-            }
-            setupSession.editBreakDuration(updateSessionEditText(newBreakDuration, sessionBreakDurationText, durationTextWatcher))
         }
-        setupSession.editBreakDuration(updateSessionEditText(setupSession.breakDurationSeconds, sessionBreakDurationText, durationTextWatcher))
+        setupSession.editBreakDuration(updateSessionEditText(setupSession.breakDurationSeconds, sessionBreakDurationText))
     }
 
     /**
      * Update the UI of a value and apply boundaries.
      * @param value The number to be shown in the UI
      * @param valueText The EditText to update with the latest value. Set to null of no UI update is required.
-     * @param valueTextWatcher Listener on UI text changes. Deactivated when the UI is updated to avoid infinite recursion.
      * @return The value inside the boundaries that is now visualized in the UI.
      */
-    private fun updateSessionEditText(value: Int, valueText: EditText?, valueTextWatcher: TextWatcher?) : Int {
+    private fun updateSessionEditText(value: Int, valueText: EditText?) : Int {
         var modifiedValue: Int = value
 
         if (value < 1) {
             modifiedValue = 1
         }
 
-        valueText?.removeTextChangedListener(valueTextWatcher)
         valueText?.setText("$modifiedValue")
-        valueText?.addTextChangedListener(valueTextWatcher)
-
-        if (valueText?.hasFocus() == true) {
-            valueText.setSelection(valueText.length())
-        }
-
         return modifiedValue
+    }
+
+    /**
+     * Parse the text inside an EditText into an integer.
+     * @param editText Input text field to be parsed.
+     * @param defaultValue Returned if any error occurs while parsing the text.
+     * @return The parsed value. If the text could not be parsed, return the passed default value instead.
+     */
+    private fun parseEditText(editText: EditText, defaultValue: Int): Int {
+        var newValue: Int = defaultValue
+        try {
+            newValue = Integer.parseInt(editText.text.toString())
+        }
+        catch (nfex: NumberFormatException) {
+            // Happens if the text field is left empty.
+        }
+        return newValue
     }
 
     /**
@@ -236,6 +231,10 @@ class SessionSetupActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.error_message_empty_image_folder, Toast.LENGTH_LONG).show()
             return
         }
+
+        // Clearing the focus will force the EditText with the latest input to update the data model.
+        // The value will otherwise not be updated for the newly started session.
+        currentFocus?.clearFocus()
 
         // If session setup is valid, store this setup for the next app start.
         SessionDataManager.storeSession(this, setupSession)
