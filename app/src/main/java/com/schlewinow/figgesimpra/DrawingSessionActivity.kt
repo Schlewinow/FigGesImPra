@@ -375,6 +375,7 @@ class DrawingSessionActivity : AppCompatActivity() {
         fun setup(image: SessionImage, index: Int) {
             val previewImageView: ImageView = view.findViewById(R.id.drawingSessionElementReviewImage)
             ImageFileTools.loadThumbnail(this@DrawingSessionActivity, image.imageFile, previewImageView, SessionSetupActivity.PREVIEW_THUMBNAIL_SIZE)
+            previewImageView.scaleX = if (image.mirrored) -1.0f else 1.0f
 
             view.setOnClickListener {
                 runningSession.currentImageIndex = index
