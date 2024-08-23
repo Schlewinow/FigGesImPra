@@ -173,9 +173,10 @@ object ImageFileTools {
      * @return true if the file is a supported image, false otherwise.
      */
     private fun checkIfImageByExtension(extension: String): Boolean {
-        if (extension == "jpg" || extension == "jpeg"
-            || extension == "png"
-            || extension == "webp") {
+        val normalizedExtension = extension.lowercase()
+        if (normalizedExtension == "jpg" || normalizedExtension == "jpeg"
+            || normalizedExtension == "png"
+            || normalizedExtension == "webp") {
             return true
         }
 
